@@ -6,6 +6,8 @@
 
 首先 `go mod tidy` 安装依赖，然后
 
+修改 `config.yaml` 文件，填入你的 `CHATPROXY`.
+
 在程序目录下创建 `accounts.txt` 文件，每行一个账号，格式为 `username,password`，例如：
 
 ```
