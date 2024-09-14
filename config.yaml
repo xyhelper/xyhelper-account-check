@@ -1,4 +1,4 @@
 CHATPROXY: https://chatproxy-dev.closeai.biz # Chatproxy  xyhelper接入点地址
-PER: "1m" # 1s | 1m | 1h | 1d
-LIMIT: 30 # 周期内的请求数量
+PER: "1s" # 1s | 1m | 1h | 1d
+LIMIT: 1 # 周期内的请求数量
 SEPARATOR: "," # 分隔符

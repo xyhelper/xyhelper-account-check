@@ -56,7 +56,7 @@ func main() {
 		}
 		// 当符合限速条件时，将任务加入队列
 		config.RateLimiter.Wait(ctx)
-		g.Log().Info(ctx, item)
+		// g.Log().Info(ctx, item)
 		go GetAccountInfo(ctx, item.(string))
 		return nil
 	})
