@@ -20,24 +20,24 @@ func main() {
 	gfile.ReadLines("account.txt", func(line string) error {
 		// g.Log().Info(ctx, line)
 		// 使用,分割
-		account := strings.Split(line, ",")
+		account := strings.Split(line, config.Separator)
 		if len(account) < 2 {
 			g.Log().Error(ctx, "账号密码格式错误", line)
 			return nil
 		}
-		accountStr := account[0] + "," + account[1]
+		accountStr := account[0] + config.Separator + account[1]
 		// g.Log().Info(ctx, accountStr)
 		accountSet.Add(accountStr)
 		return nil
 	})
 	outputSet := gset.New(true)
 	gfile.ReadLines("output.txt", func(line string) error {
-		account := strings.Split(line, ",")
+		account := strings.Split(line, config.Separator)
 		if len(account) < 2 {
 			g.Log().Error(ctx, "账号密码格式错误", line)
 			return nil
 		}
-		accountStr := account[0] + "," + account[1]
+		accountStr := account[0] + config.Separator + account[1]
 		// g.Log().Info(ctx, accountStr)
 		outputSet.Add(accountStr)
 		return nil
@@ -68,7 +68,7 @@ func main() {
 // GetAccountInfo 获取账号信息
 func GetAccountInfo(ctx g.Ctx, account string) {
 	// 使用,分割 account
-	accountInfo := gstr.Split(account, ",")
+	accountInfo := gstr.Split(account, config.Separator)
 	if len(accountInfo) < 2 {
 		g.Log().Error(ctx, "账号密码格式错误", account)
 		return
@@ -84,7 +84,7 @@ func GetAccountInfo(ctx g.Ctx, account string) {
 	detail := resJson.Get("detail").String()
 	if detail != "" {
 		g.Log().Warning(ctx, account, detail)
-		result := username + "," + password + "," + detail
+		result := username + config.Separator + password + config.Separator + detail
 		gfile.PutContentsAppend("output.txt", result+"\n")
 
 		return
@@ -95,7 +95,7 @@ func GetAccountInfo(ctx g.Ctx, account string) {
 		g.Log().Warning(ctx, account, "获取token失败", resVar)
 		return
 	}
-	result := username + "," + password + "," + refresh_token + "," + access_token
+	result := username + config.Separator + password + config.Separator + refresh_token + config.Separator + access_token
 	g.Log().Info(ctx, result)
 	gfile.PutContentsAppend("output.txt", result+"\n")
 
