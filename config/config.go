@@ -46,7 +46,8 @@ func init() {
 	if separator != "" {
 		Separator = separator
 	}
-	RateLimiter = rate.NewLimiter(rate.Every(PER), LIMIT)
+
+	RateLimiter = rate.NewLimiter(rate.Every(PER/time.Duration(LIMIT)), LIMIT)
 	StatusCache.Set(ctx, "LoginSuccessRate", 0, 0)
 	CheckStatus(ctx)
 	gcron.AddSingleton(ctx, "0 * * * * *", CheckStatus)
