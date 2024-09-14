@@ -21,6 +21,7 @@ var (
 	PER         = time.Second
 	RateLimiter *rate.Limiter
 	StatusCache = gcache.New()
+	Separator   = ","
 )
 
 func init() {
@@ -41,6 +42,10 @@ func init() {
 	}
 	g.Log().Info(ctx, "LIMIT:", LIMIT)
 	g.Log().Info(ctx, "PER:", PER)
+	separator := g.Cfg().MustGetWithEnv(ctx, "SEPARATOR").String()
+	if separator != "" {
+		Separator = separator
+	}
 	RateLimiter = rate.NewLimiter(rate.Every(PER), LIMIT)
 	StatusCache.Set(ctx, "LoginSuccessRate", 0, 0)
 	CheckStatus(ctx)
